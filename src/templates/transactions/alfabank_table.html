@@ -1,0 +1,20 @@
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Дата проводки</th>
+            <th>Код операции</th>
+            <th>Описание</th>
+            <th>Сумма в валюте счёта</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for tr in transactions %}
+        <tr>
+            <td>{{ tr.posting_date }}</td>
+            <td>{{ tr.operation_code }}</td>
+            <td>{{ tr.description }}</td>
+            <td>{{ tr.amount }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

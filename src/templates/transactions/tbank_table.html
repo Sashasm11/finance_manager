@@ -1,0 +1,24 @@
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Дата и время операции</th>
+            <th>Дата списания</th>
+            <th>Сумма в валюте операции</th>
+            <th>Сумма операции в валюте карты</th>
+            <th>Описание операции</th>
+            <th>Номер карты</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for tr in transactions %}
+        <tr>
+            <td>{{ tr.date }}</td>
+            <td>{{ tr.time }}</td>
+            <td>{{ tr.amount_operation_currency }}</td>
+            <td>{{ tr.amount_card_currency }}</td>
+            <td>{{ tr.description }}</td>
+            <td>{{ tr.number_card }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

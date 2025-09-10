@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Импорт транзакций из PDF</h2>
+    {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+    <form method="post" enctype="multipart/form-data" class="mb-4">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="bank-select" class="form-label">Выберите банк</label>
+            <select id="bank-select" name="bank" class="form-select" required>
+                <option value="">-- выберите банк --</option>
+                <option value="tbank" {% if bank == 'tbank' %}selected{% endif %}>Т банк</option>
+                <option value="alfabank" {% if bank == 'alfabank' %}selected{% endif %}>Альфа банк</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="pdf-file" class="form-label">Выберите PDF файл</label>
+            <input type="file" id="pdf-file" name="pdf_file" accept="application/pdf" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Импортировать PDF</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="content-row">
+    <div class="transactions">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="mb-0">Последние транзакции</h2>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Дата</th>
+                        <th>Время</th>
+                        <th>Сумма</th>
+                        <th>Статус</th>
+                        <th>Описание</th>
+                        <th>Счёт</th>
+                    </tr>
+                </thead>
+                <tbody id="transactions-table">
+                    {% for transaction in transactions %}
+                    <tr>
+                        <td>{{ transaction.date|date:"d.m.Y" }}</td>
+                        <td>{{ transaction.time|time:"H:i:s" }}</td>
+                        <td class="{% if transaction.amount > 0 %}text-success{% else %}text-danger{% endif %}">
+                            {{ transaction.amount }} ₽
+                        </td>
+                        <td>{{ transaction.status }}</td>
+                        <td>{{ transaction.description }}</td>
+                        <td>{{ transaction.account.name }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center">Нет транзакций</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% if transactions %}
+            <form method="post" action="{% url 'clear_transactions' %}" class="mb-0">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-sm"
+                        onclick="return confirm('Вы уверены, что хотите удалить все транзакции? Это действие нельзя отменить.')">
+                    <i class="bi bi-trash"></i> Очистить всё
+                </button>
+            </form>
+            {% endif %}
+        </div>
+        <nav>
+            <ul class="pagination" id="pagination">
+            </ul>
+        </nav>
+    </div>
+</div>
+{% endblock %}
